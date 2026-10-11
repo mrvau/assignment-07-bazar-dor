@@ -1,6 +1,8 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
 :root {
+	--light: #f0f5f0;
 	--primary: #05893e;
 	--secondary: #1d271f;
 	--error: #d03739;
@@ -10,6 +12,7 @@
 	--color-primary: var(--primary);
 	--color-secondary: var(--secondary);
 	--color-error: var(--error);
+	--color-light: var(--light);
 	--font-noto-bengali: var(--font-noto-bengali);
 }
 

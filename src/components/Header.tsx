@@ -4,6 +4,7 @@ import Image from "next/image";
 import logo from "@/../public/logo-icon.png";
 import Link from "next/link";
 import { cacheLife } from "next/cache";
+import { Suspense } from "react";
 
 const date = async () => {
 	"use cache";
@@ -33,14 +34,16 @@ const Header = () => {
 						সাইন ইন
 					</Link>
 					<Link
-						href="/sign-in"
+						href="/sign-up"
 						className="btn bg-primary text-white hover:shadow hover:shadow-primary/70">
 						সাইন আপ
 					</Link>
 				</div>
 			</div>
 			<div>
-				<Navbar />
+				<Suspense fallback={<p>Loading...</p>}>
+					<Navbar />
+				</Suspense>
 			</div>
 		</header>
 	);
