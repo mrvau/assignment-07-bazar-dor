@@ -5,6 +5,8 @@ import logo from "@/../public/logo-icon.png";
 import Link from "next/link";
 import { cacheLife } from "next/cache";
 import { Suspense } from "react";
+import AuthButtons from "./AuthButtons";
+import { Spinner } from "@heroui/react";
 
 const date = async () => {
 	"use cache";
@@ -29,19 +31,12 @@ const Header = () => {
 						<span className="text-xs md:text-sm text-secondary/70">{date()}</span>
 					</div>
 				</Link>
-				<div className="hidden md:flex md:items-center md:gap-2">
-					<Link href="/sign-in" className="btn hover:bg-gray-100">
-						সাইন ইন
-					</Link>
-					<Link
-						href="/sign-up"
-						className="btn bg-primary text-white hover:shadow hover:shadow-primary/70">
-						সাইন আপ
-					</Link>
-				</div>
+				<Suspense fallback={<Spinner color="success" />}>
+					<AuthButtons />
+				</Suspense>
 			</div>
 			<div>
-				<Suspense fallback={<p>Loading...</p>}>
+				<Suspense fallback={<Spinner color="success" />}>
 					<Navbar />
 				</Suspense>
 			</div>
