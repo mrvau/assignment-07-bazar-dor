@@ -17,8 +17,8 @@ const date = async () => {
 
 const Header = () => {
 	return (
-		<header className="container px-4 py-4 lg:px-0">
-			<div className="flex items-center justify-center md:justify-between">
+		<header className="border-b border-secondary/10 px-4 py-4 lg:px-0">
+			<div className="container flex items-center justify-center md:justify-between">
 				<Link
 					href="/"
 					className="flex flex-col md:flex-row items-center gap-1 md:gap-2 text-center md:text-left">

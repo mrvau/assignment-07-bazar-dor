@@ -24,16 +24,18 @@ const Navbar = async () => {
 				</Button>
 				<MobileMenu categories={categories} />
 			</Drawer>
-			<nav className="hidden md:flex items-center gap-2 p-2 container">
-				{categories.map((category) => (
-					<Link
-						href={`/categories/${category.slug}`}
-						key={category.id}
-						className="px-2 py-1 rounded-lg hover:bg-primary/10">
-						<span className="mr-2">{category.icon}</span>
-						<span>{category.nameBn}</span>
-					</Link>
-				))}
+			<nav className="hidden md:block py-1 border-b border-secondary/10">
+				<div className="container flex items-center gap-2">
+					{categories.map((category) => (
+						<Link
+							href={`/categories/${category.slug}`}
+							key={category.id}
+							className="px-2 py-1 rounded-lg hover:bg-primary/10">
+							<span className="mr-2">{category.icon}</span>
+							<span>{category.nameBn}</span>
+						</Link>
+					))}
+				</div>
 			</nav>
 		</>
 	);

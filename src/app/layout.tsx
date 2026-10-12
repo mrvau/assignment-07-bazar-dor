@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import { Spinner } from "@heroui/react";
+import Marquee from "@/components/Marquee";
 
 const notoSansBengali = Noto_Sans_Bengali({
 	variable: "--font-noto-bengali",
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 				<Suspense fallback={<Spinner color="success" />}>
 					<Navbar />
 				</Suspense>
+				<Marquee />
 				<main className="bg-light min-h-screen">{children}</main>
 				<Footer />
 			</body>

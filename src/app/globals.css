@@ -13,7 +13,7 @@
 	--color-secondary: var(--secondary);
 	--color-error: var(--error);
 	--color-light: var(--light);
-	--font-noto-bengali: var(--font-noto-bengali);
+	--font-bengali: var(--font-noto-bengali);
 }
 
 @utility container {
@@ -22,4 +22,8 @@
 
 @utility btn {
 	@apply px-4 py-2 rounded-lg;
+}
+
+body {
+	font-family: var(--font-noto-bengali);
 }
