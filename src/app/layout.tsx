@@ -3,6 +3,9 @@ import { Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Suspense } from "react";
+import Navbar from "@/components/Navbar";
+import { Spinner } from "@heroui/react";
 
 const notoSansBengali = Noto_Sans_Bengali({
 	variable: "--font-noto-bengali",
@@ -19,6 +22,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 		<html lang="en" className={`${notoSansBengali.variable} h-full antialiased`}>
 			<body className="min-h-full flex flex-col">
 				<Header />
+				<Suspense fallback={<Spinner color="success" />}>
+					<Navbar />
+				</Suspense>
 				<main className="bg-light min-h-screen">{children}</main>
 				<Footer />
 			</body>

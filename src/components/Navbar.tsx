@@ -1,49 +1,41 @@
-"use client";
-
 import { Menu } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 import { Category } from "@/types";
+import { Button, Drawer } from "@heroui/react";
 
-const Navbar = () => {
-	const [categories, setCategories] = useState<Category[] | []>([]);
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
+const getCategories = async (): Promise<Category[]> => {
+	try {
+		const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/categories`);
+		return response.json();
+	} catch (e) {
+		console.error("Error fetching categories: ", e);
+		throw new Error("Failed to fetch categoris");
+	}
+};
 
-	useEffect(() => {
-		const fetchCategories = async () => {
-			try {
-				const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/categories`);
-				const categoriesData = await response.json();
-				setCategories(categoriesData);
-			} catch (e) {
-				console.error("Error fetching categories: ", e);
-			}
-		};
-
-		fetchCategories();
-	});
-
+const Navbar = async () => {
+	const categories = await getCategories();
 	return (
-		<nav className="px-4 pt-4">
-			<div
-				className="absolute top-4 left-2 flex md:hidden items-center justify-center border border-primary/70 text-primary/70 w-10 h-10 rounded-lg cursor-pointer"
-				onClick={() => setIsMenuOpen(true)}>
-				<Menu />
-			</div>
-			<ul className="hidden md:flex items-center gap-4">
+		<>
+			<Drawer>
+				<Button className="absolute top-4 left-2 flex md:hidden items-center justify-center border border-primary/70 text-primary/70 w-10 h-10 rounded-lg cursor-pointer bg-transparent">
+					<Menu />
+				</Button>
+				<MobileMenu categories={categories} />
+			</Drawer>
+			<nav className="hidden md:flex items-center gap-2 p-2 container">
 				{categories.map((category) => (
-					<li key={category.id} className="px-2 py-1 rounded-lg hover:bg-primary/10">
-						<Link href={`/categories/${category.slug}`}>
-							<span className="mr-2">{category.icon}</span>
-							<span>{category.nameBn}</span>
-						</Link>
-					</li>
+					<Link
+						href={`/categories/${category.slug}`}
+						key={category.id}
+						className="px-2 py-1 rounded-lg hover:bg-primary/10">
+						<span className="mr-2">{category.icon}</span>
+						<span>{category.nameBn}</span>
+					</Link>
 				))}
-			</ul>
-
-			{isMenuOpen && <MobileMenu categories={categories} setIsMenuOpen={setIsMenuOpen} />}
-		</nav>
+			</nav>
+		</>
 	);
 };
 

@@ -1,4 +1,3 @@
-import Navbar from "./Navbar";
 import Image from "next/image";
 
 import logo from "@/../public/logo-icon.png";
@@ -18,7 +17,7 @@ const date = async () => {
 
 const Header = () => {
 	return (
-		<header className="relative container p-4">
+		<header className="container px-4 py-4 lg:px-0">
 			<div className="flex items-center justify-center md:justify-between">
 				<Link
 					href="/"
@@ -33,11 +32,6 @@ const Header = () => {
 				</Link>
 				<Suspense fallback={<Spinner color="success" />}>
 					<AuthButtons />
-				</Suspense>
-			</div>
-			<div>
-				<Suspense fallback={<Spinner color="success" />}>
-					<Navbar />
 				</Suspense>
 			</div>
 		</header>

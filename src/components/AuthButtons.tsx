@@ -68,7 +68,7 @@ const AuthButtons = () => {
 					)}
 				</div>
 			) : (
-				<div className="hidden md:flex md:items-center md:gap-2">
+				<div className="hidden md:flex items-center gap-2">
 					<Link href="/sign-in" className="btn hover:bg-gray-100">
 						সাইন ইন
 					</Link>
