@@ -35,6 +35,12 @@ const Marquee = async () => {
 		dozen: "ডজন",
 		piece: "পিছ",
 	};
+
+	const directionsMap = {
+		up: { icon: "bxs:up-arrow", color: "text-error" },
+		down: { icon: "bxs:down-arrow", color: "text-primary" },
+		flat: { icon: "akar-icons:minus", color: "text-secondary" },
+	} as const;
 	return (
 		<MarqueeText direction="right" textSpacing="36px" duration={10} className="py-1">
 			{products.map((product) => (
@@ -51,8 +57,8 @@ const Marquee = async () => {
 					</span>
 
 					<div
-						className={`${product.change.dir === "up" ? "text-error" : "text-primary"} flex items-center gap-1`}>
-						<Icon icon={`bxs:${product.change.dir}-arrow`} />
+						className={`${directionsMap[product.change.dir as keyof typeof directionsMap].color} flex items-center gap-1`}>
+						<Icon icon={directionsMap[product.change.dir as keyof typeof directionsMap].icon} />
 						<span>{product.change.pct} %</span>
 					</div>
 				</Link>

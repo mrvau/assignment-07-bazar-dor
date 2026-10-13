@@ -1,8 +1,8 @@
 import { Menu } from "lucide-react";
-import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import { Category } from "@/types";
 import { Button, Drawer } from "@heroui/react";
+import NavItems from "./NavItems";
 
 const getCategories = async (): Promise<Category[]> => {
 	try {
@@ -25,17 +25,7 @@ const Navbar = async () => {
 				<MobileMenu categories={categories} />
 			</Drawer>
 			<nav className="hidden md:block py-1 border-b border-secondary/10">
-				<div className="container flex items-center gap-2">
-					{categories.map((category) => (
-						<Link
-							href={`/categories/${category.slug}`}
-							key={category.id}
-							className="px-2 py-1 rounded-lg hover:bg-primary/10">
-							<span className="mr-2">{category.icon}</span>
-							<span>{category.nameBn}</span>
-						</Link>
-					))}
-				</div>
+				<NavItems categories={categories} />
 			</nav>
 		</>
 	);

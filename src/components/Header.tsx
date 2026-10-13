@@ -2,22 +2,14 @@ import Image from "next/image";
 
 import logo from "@/../public/logo-icon.png";
 import Link from "next/link";
-import { cacheLife } from "next/cache";
 import { Suspense } from "react";
 import AuthButtons from "./AuthButtons";
 import { Spinner } from "@heroui/react";
-
-const date = async () => {
-	"use cache";
-	cacheLife("days");
-	return new Date().toLocaleDateString("bn-BD", {
-		dateStyle: "full",
-	});
-};
+import { date } from "@/lib/utility";
 
 const Header = () => {
 	return (
-		<header className="border-b border-secondary/10 px-4 py-4 lg:px-0">
+		<header className="border-b border-secondary/10 py-4">
 			<div className="container flex items-center justify-center md:justify-between">
 				<Link
 					href="/"

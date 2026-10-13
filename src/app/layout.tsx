@@ -23,11 +23,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 		<html lang="en" className={`${notoSansBengali.variable} h-full antialiased`}>
 			<body className="min-h-full flex flex-col">
 				<Header />
-				<Suspense fallback={<Spinner color="success" />}>
+				<Suspense
+					fallback={
+						<div className="flex items-center justify-center py-2">
+							<Spinner color="success" size="lg" />
+						</div>
+					}>
 					<Navbar />
+					<Marquee />
 				</Suspense>
-				<Marquee />
-				<main className="bg-light min-h-screen">{children}</main>
+				<main className="bg-light min-h-screen py-6 md:py-10">{children}</main>
 				<Footer />
 			</body>
 		</html>

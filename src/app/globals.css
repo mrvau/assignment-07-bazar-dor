@@ -16,14 +16,16 @@
 	--font-bengali: var(--font-noto-bengali);
 }
 
+@layer base {
+	body {
+		@apply font-bengali;
+	}
+}
+
 @utility container {
-	@apply max-w-7xl mx-auto;
+	@apply max-w-xs md:max-w-3xl lg:max-w-7xl mx-auto;
 }
 
 @utility btn {
 	@apply px-4 py-2 rounded-lg;
-}
-
-body {
-	font-family: var(--font-noto-bengali);
 }
