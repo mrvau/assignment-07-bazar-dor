@@ -1,21 +1,8 @@
+import { DIRECTION_MAP, UNIT_MAP } from "@/constants";
+import { Product } from "@/types";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import MarqueeText from "react-marquee-text";
-
-interface Marquee {
-	id: number;
-	slug: string;
-	nameBn: string;
-	category: string;
-	categoryNameBn: string;
-	categoryIcon: string;
-	unit: string;
-	today: number;
-	change: {
-		dir: string;
-		pct: number;
-	};
-}
 
 const getProducts = async () => {
 	try {
@@ -28,19 +15,7 @@ const getProducts = async () => {
 };
 
 const Marquee = async () => {
-	const products: Marquee[] = await getProducts();
-	const unitMap = {
-		kg: "কেজি",
-		litre: "লিটার",
-		dozen: "ডজন",
-		piece: "পিছ",
-	};
-
-	const directionsMap = {
-		up: { icon: "bxs:up-arrow", color: "text-error" },
-		down: { icon: "bxs:down-arrow", color: "text-primary" },
-		flat: { icon: "akar-icons:minus", color: "text-secondary" },
-	} as const;
+	const products: Product[] = await getProducts();
 	return (
 		<MarqueeText direction="right" textSpacing="36px" duration={10} className="py-1">
 			{products.map((product) => (
@@ -53,12 +28,12 @@ const Marquee = async () => {
 					</span>
 
 					<span>
-						{product.today} টাকা/{unitMap[product.unit as keyof typeof unitMap]}
+						{product.today} টাকা/{UNIT_MAP[product.unit as keyof typeof UNIT_MAP]}
 					</span>
 
 					<div
-						className={`${directionsMap[product.change.dir as keyof typeof directionsMap].color} flex items-center gap-1`}>
-						<Icon icon={directionsMap[product.change.dir as keyof typeof directionsMap].icon} />
+						className={`${DIRECTION_MAP[product.change.dir as keyof typeof DIRECTION_MAP].color} flex items-center gap-1`}>
+						<Icon icon={DIRECTION_MAP[product.change.dir as keyof typeof DIRECTION_MAP].icon} />
 						<span>{product.change.pct} %</span>
 					</div>
 				</Link>
