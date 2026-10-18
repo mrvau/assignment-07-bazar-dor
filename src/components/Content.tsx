@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import ProductCard from "./ProductCard";
 import { Product } from "@/types";
+import { convertToBangla } from "@/lib/utility";
 
 interface ContentProps {
 	products: Product[];
@@ -11,13 +12,14 @@ interface ContentProps {
 const Content = ({ products, direction, title }: ContentProps) => {
 	let sortedProducts = [...products];
 	if (direction) {
-		sortedProducts = sortedProducts.slice(0, 6).sort((a, b) => {
+		sortedProducts = sortedProducts.sort((a, b) => {
 			if (direction === "up") {
 				return b.change.pct - a.change.pct;
 			}
 			return a.change.pct - b.change.pct;
 		});
 	}
+	const productsToRender = direction ? sortedProducts.slice(0, 6) : sortedProducts;
 	return (
 		<section className="container pb-6 md:pb-10 space-y-4">
 			<div
@@ -28,14 +30,14 @@ const Content = ({ products, direction, title }: ContentProps) => {
 					{!direction && (
 						<>
 							<span className="text-secondary/70 text-sm">
-								মোট {products.length}টি পণ্য দেখান হচ্ছে
+								মোট {convertToBangla(products.length)}টি পণ্য দেখান হচ্ছে
 							</span>
 						</>
 					)}
 				</div>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-				{sortedProducts.map((product) => (
+				{productsToRender.map((product) => (
 					<ProductCard key={product.id} product={product} />
 				))}
 			</div>

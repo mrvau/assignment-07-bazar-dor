@@ -1,4 +1,5 @@
 import { DIRECTION_MAP, UNIT_MAP } from "@/constants";
+import { convertToBangla } from "@/lib/utility";
 import { Product } from "@/types";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
@@ -28,13 +29,13 @@ const Marquee = async () => {
 					</span>
 
 					<span>
-						{product.today} টাকা/{UNIT_MAP[product.unit as keyof typeof UNIT_MAP]}
+						{convertToBangla(product.today)} টাকা/{UNIT_MAP[product.unit as keyof typeof UNIT_MAP]}
 					</span>
 
 					<div
 						className={`${DIRECTION_MAP[product.change.dir as keyof typeof DIRECTION_MAP].color} flex items-center gap-1`}>
 						<Icon icon={DIRECTION_MAP[product.change.dir as keyof typeof DIRECTION_MAP].icon} />
-						<span>{product.change.pct} %</span>
+						<span>{convertToBangla(product.change.pct)} %</span>
 					</div>
 				</Link>
 			))}

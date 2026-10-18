@@ -1,4 +1,5 @@
 import { DIRECTION_MAP, UNIT_MAP } from "@/constants";
+import { convertToBangla } from "@/lib/utility";
 import { Product } from "@/types";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle, Chip } from "@heroui/react";
 import { Icon } from "@iconify/react";
@@ -18,11 +19,11 @@ const ProductCard = ({ product }: { product: Product }) => {
 				<CardFooter className="justify-between">
 					<div className="flex flex-col">
 						<span>আজকের দাম</span>
-						<span>{product.today} টাকা</span>
+						<span>{convertToBangla(product.today)} টাকা</span>
 					</div>
 					<Chip className={DIRECTION_MAP[product.change.dir as keyof typeof DIRECTION_MAP].color}>
 						<Icon icon={DIRECTION_MAP[product.change.dir as keyof typeof DIRECTION_MAP].icon} />
-						<span className="ml-1">{product.change.pct} %</span>
+						<span className="ml-1">{convertToBangla(product.change.pct)} %</span>
 					</Chip>
 				</CardFooter>
 			</Card>
