@@ -1,5 +1,4 @@
-import PriceRaised from "./PriceRaised";
-import PriceDown from "./PriceDown";
+import Content from "./Content";
 import { Product } from "@/types";
 
 const getProducts = async () => {
@@ -12,12 +11,9 @@ const ProductsSection = async () => {
 
 	return (
 		<>
-			<PriceRaised
-				topRaisedProducts={products.sort((a, b) => b.change.pct - a.change.pct).slice(0, 6)}
-			/>
-			<PriceDown
-				topDownProducts={products.sort((a, b) => a.change.pct - b.change.pct).slice(0, 6)}
-			/>
+			<Content products={products} direction="up" title="আজ দাম বেড়েছে" />
+			<Content products={products} direction="down" title="আজ দাম কমেছে" />
+			<Content products={products} title="সব পণ্য" />
 		</>
 	);
 };
