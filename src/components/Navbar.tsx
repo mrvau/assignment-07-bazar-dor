@@ -4,18 +4,13 @@ import { Category } from "@/types";
 import { Button, Drawer } from "@heroui/react";
 import NavItems from "./NavItems";
 
-const getCategories = async (): Promise<Category[]> => {
-	try {
-		const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/categories`);
-		return response.json();
-	} catch (e) {
-		console.error("Error fetching categories: ", e);
-		throw new Error("Failed to fetch categoris");
-	}
+const getCategories = async () => {
+	const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/categories`);
+	return response.json();
 };
 
 const Navbar = async () => {
-	const categories = await getCategories();
+	const categories: Category[] = await getCategories();
 	return (
 		<>
 			<Drawer>

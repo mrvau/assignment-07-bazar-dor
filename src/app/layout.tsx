@@ -32,7 +32,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 					<Navbar />
 					<Marquee />
 				</Suspense>
-				<main className="bg-light min-h-screen">{children}</main>
+				<main className="bg-light min-h-screen">
+					<div className="container space-y-6 md:space-y-10 py-6 md:py-10">{children}</div>
+				</main>
 				<Footer />
 			</body>
 		</html>

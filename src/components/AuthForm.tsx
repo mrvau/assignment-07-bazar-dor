@@ -50,6 +50,7 @@ const AuthForm = ({ authType = "sign-up" }: AuthFormProps) => {
 		const { data: resData, error } = await authClient.signIn.email({
 			email: data.email as string,
 			password: data.password as string,
+			callbackURL: "/",
 		});
 
 		console.log(resData, error);

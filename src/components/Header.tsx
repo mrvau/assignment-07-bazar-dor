@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import AuthButtons from "./AuthButtons";
 import { Spinner } from "@heroui/react";
-import { date } from "@/lib/utility";
+import Today from "./Today";
 
 const Header = () => {
 	return (
@@ -19,11 +19,15 @@ const Header = () => {
 					</div>
 					<div>
 						<p className="font-bold text-2xl text-secondary">বাজার দর</p>
-						<span className="text-xs md:text-sm text-secondary/70">{date()}</span>
+						<span className="text-xs md:text-sm text-secondary/70">
+							<Today />
+						</span>
 					</div>
 				</Link>
 				<Suspense fallback={<Spinner color="success" />}>
-					<AuthButtons />
+					<div className="hidden md:block">
+						<AuthButtons />
+					</div>
 				</Suspense>
 			</div>
 		</header>

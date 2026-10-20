@@ -1,16 +1,18 @@
-import { date } from "@/lib/utility";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle, Chip } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 
 import hero from "@/../public/bazar-hero.png";
+import Today from "./Today";
 const Hero = () => {
 	return (
-		<section className="container py-6 md:py-10">
-			<Card className="md:flex-row justify-between">
+		<section>
+			<Card className="md:flex-row justify-between border border-secondary/10">
 				<div className="flex flex-col items-center md:items-start gap-8">
 					<CardHeader className="text-center md:text-left items-center md:items-start gap-4">
-						<Chip className="bg-primary/30 text-primary font-semibold lg:text-sm">{date()}</Chip>
+						<Chip className="bg-primary/30 text-primary font-semibold lg:text-sm">
+							<Today />
+						</Chip>
 						<CardTitle className="text-3xl lg:text-4xl font-bold leading-10">
 							আজকের বাজারের দাম এক নজরে
 						</CardTitle>
@@ -20,7 +22,9 @@ const Hero = () => {
 						</CardDescription>
 					</CardHeader>
 					<CardFooter>
-						<Link href="#all-products" className="btn bg-primary text-white font-semibold">
+						<Link
+							href="#all-products"
+							className="btn bg-primary text-white font-semibold shadow shadow-primary">
 							সব পণ্য দেখুন
 						</Link>
 					</CardFooter>

@@ -5,7 +5,7 @@ export interface Category {
 	icon: string;
 }
 
-interface Market {
+export interface Market {
 	market: string;
 	division: string;
 	min: number;

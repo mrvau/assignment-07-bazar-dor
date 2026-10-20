@@ -6,24 +6,19 @@ import Link from "next/link";
 import MarqueeText from "react-marquee-text";
 
 const getProducts = async () => {
-	try {
-		const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products`);
-		return response.json();
-	} catch (e) {
-		console.error("Error fetching products: ", e);
-		throw new Error("Failed to fetch products");
-	}
+	const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products`);
+	return response.json();
 };
 
 const Marquee = async () => {
 	const products: Product[] = await getProducts();
 	return (
-		<MarqueeText direction="right" textSpacing="36px" duration={10} className="py-1">
+		<MarqueeText direction="right" duration={10} className="border-b border-secondary/10">
 			{products.map((product) => (
 				<Link
 					href={`/categories/${product.category}/${product.id}`}
 					key={product.id}
-					className="flex items-center gap-2">
+					className="flex items-center gap-2 border-r border-secondary/10 px-4 py-1">
 					<span className="font-bold">
 						{product.categoryIcon} {product.nameBn}
 					</span>

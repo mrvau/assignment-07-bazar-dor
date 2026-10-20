@@ -1,29 +1,28 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import {
+	Button,
+	Modal,
+	ModalBackdrop,
+	ModalBody,
+	ModalContainer,
+	ModalDialog,
+	ModalHeader,
+	ModalHeading,
+	Spinner,
+} from "@heroui/react";
 import { ChevronDown, CircleUserRound, CornerDownLeft, User } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+
 const AuthButtons = () => {
-	const { data, error } = authClient.useSession();
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const modalRef = useRef<HTMLDivElement>(null);
+	const [isOpen, setIsOpen] = useState(false);
+	const { data, error, isPending } = authClient.useSession();
 
-	useEffect(() => {
-		const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
-			if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-				setIsModalOpen(false);
-			}
-		};
-
-		document.addEventListener("mousedown", handleOutsideClick);
-		document.addEventListener("touchstart", handleOutsideClick);
-
-		return () => {
-			document.removeEventListener("mousedown", handleOutsideClick);
-			document.removeEventListener("touchstart", handleOutsideClick);
-		};
-	});
+	if (isPending) {
+		return <Spinner color="success" />;
+	}
 
 	const handleSignOut = async () => {
 		const { data, error } = await authClient.signOut({
@@ -37,44 +36,55 @@ const AuthButtons = () => {
 	return (
 		<>
 			{data ? (
-				<div className="flex items-center gap-2 relative">
-					<CircleUserRound />
-					<div
-						className="flex items-center gap-1 cursor-pointer"
-						onClick={() => setIsModalOpen(true)}>
-						<span>{data?.user.name.split(" ")[0]}</span>
-						<ChevronDown />
-					</div>
-					{isModalOpen && (
-						<div
-							ref={modalRef}
-							className="absolute top-10 right-6 bg-white px-4 py-6 shadow-sm rounded-lg space-y-4 w-2xs">
-							<div>
-								<h4 className="text-xl font-semibold text-secondary">{data?.user.name}</h4>
-								<p className="text-sm text-secondary/70">{data?.user.email}</p>
-							</div>
-							<Link
-								href={"/profile"}
-								className="flex items-center gap-1 hover:bg-primary/10 px-4 py-2 rounded-lg w-full">
-								<User /> আমার প্রোফাইল
-							</Link>
-							<button
-								className="text-error/70 flex items-center gap-1 cursor-pointer hover:bg-error/10 px-4 py-2 rounded-lg w-full"
-								onClick={handleSignOut}>
-								<CornerDownLeft />
-								সাইন আউট
-							</button>
+				<Modal>
+					<button onClick={() => setIsOpen(true)} className="flex items-center gap-2">
+						<CircleUserRound size={26} />
+
+						<div className="flex items-center gap-1 cursor-pointer">
+							<span>{data?.user.name.split(" ")[0]}</span>
+							<ChevronDown />
 						</div>
-					)}
-				</div>
+					</button>
+					<ModalBackdrop variant="transparent" isOpen={isOpen} onOpenChange={setIsOpen}>
+						<ModalContainer
+							size="sm"
+							placement="top"
+							className={"block absolute bottom-10 left-0 md:top-8 md:right-0 h-fit"}>
+							<ModalDialog>
+								<ModalHeader className="gap-1">
+									<ModalHeading className="font-semibold">{data?.user.name}</ModalHeading>
+									<p className="text-secondary/70">{data?.user.email}</p>
+								</ModalHeader>
+								<ModalBody className="space-y-4">
+									<Link
+										href={"/profile"}
+										className="flex items-center gap-2 hover:bg-secondary/10 px-2 py-1 rounded-full font-medium text-lg">
+										<User />
+										<span>আমার প্রোফাইল</span>
+									</Link>
+									<Button
+										onClick={handleSignOut}
+										className={
+											"w-full bg-transparent text-error justify-start text-lg hover:bg-error/10"
+										}>
+										<CornerDownLeft />
+										সাইন আউট
+									</Button>
+								</ModalBody>
+							</ModalDialog>
+						</ModalContainer>
+					</ModalBackdrop>
+				</Modal>
 			) : (
-				<div className="hidden md:flex items-center gap-2">
-					<Link href="/sign-in" className="btn hover:bg-gray-100">
+				<div className="flex flex-col md:flex-row items-center gap-2 w-full md:w-fit">
+					<Link
+						href="/sign-in"
+						className="btn bg-gray-100 md:bg-transparent hover:bg-gray-100 w-full md:w-fit">
 						সাইন ইন
 					</Link>
 					<Link
 						href="/sign-up"
-						className="btn bg-primary text-white hover:shadow hover:shadow-primary/70">
+						className="btn bg-primary text-white hover:shadow hover:shadow-primary/70 w-full md:w-fit">
 						সাইন আপ
 					</Link>
 				</div>

@@ -18,7 +18,7 @@
 
 @layer base {
 	body {
-		@apply font-bengali;
+		@apply font-bengali text-secondary;
 	}
 }
 

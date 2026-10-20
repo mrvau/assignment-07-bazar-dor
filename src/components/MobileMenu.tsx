@@ -14,6 +14,7 @@ import {
 	DrawerHeading,
 } from "@heroui/react";
 import NavItems from "./NavItems";
+import AuthButtons from "./AuthButtons";
 
 interface MobileMenuProps {
 	categories: Category[];
@@ -45,14 +46,7 @@ const MobileMenu = ({ categories }: MobileMenuProps) => {
 						</nav>
 					</DrawerBody>
 					<DrawerFooter className="flex flex-col items-center gap-2 text-center">
-						<Link href="/sign-in" className="btn bg-gray-100 w-full">
-							সাইন ইন
-						</Link>
-						<Link
-							href="/sign-up"
-							className="btn bg-primary text-white hover:shadow hover:shadow-primary/70 w-full">
-							সাইন আপ
-						</Link>
+						<AuthButtons />
 					</DrawerFooter>
 				</DrawerDialog>
 			</DrawerContent>
