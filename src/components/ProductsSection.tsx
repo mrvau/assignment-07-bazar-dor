@@ -13,7 +13,7 @@ const ProductsSection = async () => {
 		<>
 			<Content products={products} type="up" title="আজ দাম বেড়েছে" />
 			<Content products={products} type="down" title="আজ দাম কমেছে" />
-			<Content products={products} type="all" title="সব পণ্য" />
+			<Content products={products} type="all" title="সব পণ্য" id="all-products" />
 		</>
 	);
 };

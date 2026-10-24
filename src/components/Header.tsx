@@ -9,7 +9,7 @@ import Today from "./Today";
 
 const Header = () => {
 	return (
-		<header className="border-b border-secondary/10 py-4">
+		<header className="relative border-b border-secondary/10 py-4">
 			<div className="container flex items-center justify-center md:justify-between">
 				<Link
 					href="/"

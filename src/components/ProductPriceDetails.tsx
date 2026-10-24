@@ -15,7 +15,7 @@ import { convertToBangla } from "@/lib/utility";
 const ProductPriceDetails = ({ markets, unit }: { markets: Market[]; unit: string }) => {
 	const { min: lowestPrice } = markets.toSorted((a, b) => a.min - b.min)[0];
 	const { max: highestPrice } = markets.toSorted((a, b) => b.max - a.max)[0];
-	const averagePrice = (lowestPrice + highestPrice) / 2;
+	const averagePrice = Math.round((lowestPrice + highestPrice) / 2);
 
 	return (
 		<div className="bg-white px-6 py-4 rounded-2xl space-y-8">

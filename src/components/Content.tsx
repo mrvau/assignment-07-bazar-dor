@@ -22,6 +22,7 @@ interface ContentProps {
 	products: Product[];
 	type: "all" | "up" | "down" | "sortable";
 	title?: string;
+	id?: string;
 }
 
 const sortProducts = (products: Product[], sortBy: string | Key | null) => {
@@ -44,7 +45,7 @@ const sortProducts = (products: Product[], sortBy: string | Key | null) => {
 	return products;
 };
 
-const Content = ({ products, type, title }: ContentProps) => {
+const Content = ({ products, type, title, id }: ContentProps) => {
 	const [sortBy, setSortBy] = useState<Key | null>("default");
 
 	const sortedProducts =
@@ -54,7 +55,7 @@ const Content = ({ products, type, title }: ContentProps) => {
 
 	console.log(sortBy);
 	return (
-		<section className="space-y-4">
+		<section className="space-y-4" id={id}>
 			<div className="flex flex-col md:flex-row items-center justify-between">
 				<div
 					className={`${type === "up" ? "text-error" : "text-primary"} flex items-center justify-center md:justify-start gap-2`}>

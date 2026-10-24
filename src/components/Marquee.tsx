@@ -16,7 +16,7 @@ const Marquee = async () => {
 		<MarqueeText direction="right" duration={10} className="border-b border-secondary/10">
 			{products.map((product) => (
 				<Link
-					href={`/categories/${product.category}/${product.id}`}
+					href={`/product/${product.id}`}
 					key={product.id}
 					className="flex items-center gap-2 border-r border-secondary/10 px-4 py-1">
 					<span className="font-bold">

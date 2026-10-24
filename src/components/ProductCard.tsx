@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const ProductCard = ({ product }: { product: Product }) => {
 	return (
-		<Link href={`/categories/${product.category}/${product.id}`}>
+		<Link href={`/product/${product.id}`}>
 			<Card className="border border-secondary/10">
 				<CardHeader className="flex-row items-center gap-2">
 					<div className="bg-gray-200 text-2xl p-2 rounded-xl">{product.image}</div>

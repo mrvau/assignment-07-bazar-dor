@@ -24,7 +24,7 @@ const MobileMenu = ({ categories }: MobileMenuProps) => {
 	return (
 		<DrawerBackdrop>
 			<DrawerContent placement="left">
-				<DrawerDialog>
+				<DrawerDialog className="relative">
 					<DrawerCloseTrigger className="text-primary border border-primary p-2 rounded-full cursor-pointer bg-transparent">
 						<X />
 					</DrawerCloseTrigger>

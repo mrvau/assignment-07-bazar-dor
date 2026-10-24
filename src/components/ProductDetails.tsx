@@ -2,8 +2,8 @@ import { DIRECTION_MAP, UNIT_MAP } from "@/constants";
 import { convertToBangla } from "@/lib/utility";
 import ProductPriceDetails from "./ProductPriceDetails";
 import { Product } from "@/types";
-import Breadcrumb from "./Breadcrumb";
 import { Icon } from "@iconify/react";
+import { Breadcrumbs, BreadcrumbsItem } from "@heroui/react";
 
 const getProduct = async (id: string) => {
 	const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products/${id}`);
@@ -14,7 +14,8 @@ const ProductDetails = async ({ params }: { params: Promise<{ id: string }> }) =
 	const { id } = await params;
 	const product: Product = await getProduct(id);
 
-	const { nameBn, categoryNameBn, image, change, today, yesterday, markets, unit } = product;
+	const { nameBn, categoryNameBn, image, change, today, category, yesterday, markets, unit } =
+		product;
 
 	const { dir, pct } = change;
 
@@ -23,7 +24,11 @@ const ProductDetails = async ({ params }: { params: Promise<{ id: string }> }) =
 	console.log(product);
 	return (
 		<section className="space-y-8">
-			<Breadcrumb productName={nameBn} categoryBn={categoryNameBn} />
+			<Breadcrumbs>
+				<BreadcrumbsItem href="/">হোম</BreadcrumbsItem>
+				<BreadcrumbsItem href={`/categories/${category}`}>{categoryNameBn}</BreadcrumbsItem>
+				<BreadcrumbsItem>{nameBn}</BreadcrumbsItem>
+			</Breadcrumbs>
 			<div className="flex flex-col md:flex-row items-center justify-between bg-white py-4 px-6 rounded-2xl text-center md:text-left">
 				<div className="flex flex-col md:flex-row items-center gap-4">
 					<div className="text-4xl bg-primary/10 p-4 rounded-xl">{image}</div>
