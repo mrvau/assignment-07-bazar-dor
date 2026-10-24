@@ -1,21 +1,14 @@
-import { Spinner } from "@heroui/react";
-import React, { Suspense } from "react";
+import React from "react";
 
 const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<section>
+		<section className="space-y-6">
 			<div>
-				<h3>আমার প্রোফাইল</h3>
-				<p>আপনার প্রোফাইলর তথ্য এখানে দেখুন।</p>
+				<h3 className="text-2xl font-bold">আমার প্রোফাইল</h3>
+				<p className="text-secondary/70">আপনার প্রোফাইলর তথ্য এখানে দেখুন।</p>
 			</div>
-			<Suspense
-				fallback={
-					<div className="flex items-center justify-center">
-						<Spinner color="success" />
-					</div>
-				}>
-				<div>{children}</div>
-			</Suspense>
+
+			{children}
 		</section>
 	);
 };
