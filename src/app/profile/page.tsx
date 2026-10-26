@@ -5,6 +5,7 @@ import Image from "next/image";
 import profile from "@/../public/profile-placeholder.png";
 import { Button, Spinner } from "@heroui/react";
 import { CornerDownLeft } from "lucide-react";
+import Link from "next/link";
 
 const ProfilePage = () => {
 	const { data, isPending } = authClient.useSession();
@@ -25,34 +26,31 @@ const ProfilePage = () => {
 		console.log(data, error);
 	};
 	return (
-		<>
-			<div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white px-4 py-6 rounded-xl">
-				<div className="flex items-center gap-4">
-					<div className="rounded-xl overflow-hidden">
-						<Image src={data?.user.image || profile} alt="User profile" width={56} height={56} />
-					</div>
-					<div>
-						<p className="font-semibold text-xl">{data?.user.name}</p>
-						<p className="text-secondary/70">{data?.user.email}</p>
-					</div>
+		<div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white px-4 py-6 rounded-xl">
+			<div className="flex items-center gap-4">
+				<div className="rounded-xl overflow-hidden">
+					<Image src={data?.user.image || profile} alt="User profile" width={56} height={56} />
 				</div>
 				<div>
-					<Button
-						fullWidth
-						onClick={handleSignOut}
-						className={
-							"justify-start bg-transparent border border-error text-error hover:bg-error/10 rounded-lg"
-						}>
-						<CornerDownLeft className="w-6 h-6" />
-						সাইন আউট
-					</Button>
+					<p className="font-semibold text-xl">{data?.user.name}</p>
+					<p className="text-secondary/70">{data?.user.email}</p>
 				</div>
 			</div>
-			<div>
-				<h5>তথ্য</h5>
-				<div></div>
+			<div className="flex items-center gap-2">
+				<Link href={"/profile/update"}>
+					<Button className={"bg-primary rounded-lg "}>আপডেট</Button>
+				</Link>
+				<Button
+					fullWidth
+					onClick={handleSignOut}
+					className={
+						"justify-start bg-transparent border border-error text-error hover:bg-error/10 rounded-lg"
+					}>
+					<CornerDownLeft />
+					সাইন আউট
+				</Button>
 			</div>
-		</>
+		</div>
 	);
 };
 

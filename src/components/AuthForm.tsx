@@ -64,6 +64,14 @@ const AuthForm = ({ authType = "sign-up" }: AuthFormProps) => {
 		console.log(data);
 	};
 
+	const handleGoogleAuthentication = async () => {
+		const data = await authClient.signIn.social({
+			provider: "google",
+		});
+
+		console.log(data);
+	};
+
 	return (
 		<Card className="bg-white px-4 py-6 rounded-lg w-full md:w-fit gap-4">
 			<CardHeader className="text-center space-y-4">
@@ -150,7 +158,7 @@ const AuthForm = ({ authType = "sign-up" }: AuthFormProps) => {
 						<div className="border border-secondary/60 flex-1" />
 					</div>
 					<div className="flex flex-col md:flex-row items-center justify-center gap-2 mt-4 w-full">
-						<Button className="w-full" variant="tertiary">
+						<Button className="w-full" variant="tertiary" onClick={handleGoogleAuthentication}>
 							<Icon icon="devicon:google" />
 							Google দিয়ে চালিয়ে যান
 						</Button>
