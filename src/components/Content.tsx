@@ -53,14 +53,13 @@ const Content = ({ products, type, title, id }: ContentProps) => {
 	const productsToRender =
 		type === "all" || type === "sortable" ? sortedProducts : sortedProducts.slice(0, 6);
 
-	console.log(sortBy);
 	return (
 		<section className="space-y-4" id={id}>
 			<div className="flex flex-col md:flex-row items-center justify-between">
 				<div
 					className={`${type === "up" ? "text-error" : "text-primary"} flex items-center justify-center md:justify-start gap-2`}>
 					{type && <Icon icon={`bxs:${type}-arrow`} />}
-					<div className="text-secondary">
+					<div className="text-secondary text-center md:text-left">
 						{title && <h2 className="font-bold text-lg">{title}</h2>}
 						{(type === "all" || type === "sortable") && (
 							<span className="text-secondary/70 text-sm">
