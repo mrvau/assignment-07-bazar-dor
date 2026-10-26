@@ -46,7 +46,7 @@ const AuthButtons = () => {
 					<PopoverTrigger>
 						<div className="flex items-center gap-2">
 							<Avatar>
-								<AvatarImage src={data?.user.image || "@/../public/profile.png"} />
+								<AvatarImage src={data?.user.image || profile.src} />
 							</Avatar>
 							<div className="flex items-center gap-1 text-secondary/70">
 								<p className="text-secondary">{data?.user.name.split(" ")[0]}</p>
