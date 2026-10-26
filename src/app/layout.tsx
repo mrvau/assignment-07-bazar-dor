@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
-import { Spinner } from "@heroui/react";
+import { Spinner, ToastProvider } from "@heroui/react";
 import Marquee from "@/components/Marquee";
 
 const notoSansBengali = Noto_Sans_Bengali({
@@ -22,6 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 	return (
 		<html lang="en" className={`${notoSansBengali.variable} h-full antialiased`}>
 			<body className="min-h-full flex flex-col">
+				<ToastProvider placement="top end" />
 				<Header />
 				<Suspense
 					fallback={

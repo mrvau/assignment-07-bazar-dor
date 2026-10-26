@@ -1,7 +1,7 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { Button, Form, Input, Label, TextField } from "@heroui/react";
+import { Button, Form, Input, Label, TextField, toast } from "@heroui/react";
 import { FormEvent } from "react";
 
 const UpdatePage = () => {
@@ -10,11 +10,14 @@ const UpdatePage = () => {
 		const formData = new FormData(e.currentTarget);
 		const data = Object.fromEntries(formData.entries());
 
-		const response = await authClient.updateUser({
+		const { data: resData, error } = await authClient.updateUser({
 			name: data.name as string,
 		});
 
-		console.log(response);
+		if (resData?.status) toast.success("তথ্য আপডেট করা হয়েছে।");
+		else toast.warning("তথ্য আপডেট করা হয়নি।");
+
+		if (error) toast.danger("তথ্য আপডেট করার সময় একটি সমস্যা হয়েছে!");
 	};
 	return (
 		<div className="space-y-4 bg-white px-4 py-6 rounded-lg">

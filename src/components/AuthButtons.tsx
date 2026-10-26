@@ -11,15 +11,21 @@ import {
 	PopoverHeading,
 	PopoverTrigger,
 	Spinner,
+	toast,
 } from "@heroui/react";
 import { CornerDownLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import profile from "@/../public/profile-placeholder.png";
 import { Icon } from "@iconify/react";
+import { useEffect } from "react";
 
 const AuthButtons = () => {
 	const { data, error, isPending } = authClient.useSession();
+
+	useEffect(() => {
+		if (error) toast.danger("কিছু একটা সমস্যা হয়েছে!");
+	}, [error]);
 
 	if (isPending) {
 		return <Spinner color="success" />;
@@ -30,10 +36,9 @@ const AuthButtons = () => {
 			callbackURL: "/sign-in",
 		});
 
-		console.log(data, error);
+		if (data) toast.success("সফল ভাবে সাইন আউট হয়েছে।");
+		if (error) toast.danger("কিছু একটা সমস্যা হয়েছে!");
 	};
-
-	console.log(data, error);
 	return (
 		<>
 			{data ? (

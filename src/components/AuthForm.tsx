@@ -14,10 +14,12 @@ import {
 	Input,
 	Label,
 	TextField,
+	toast,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { FormEvent, useEffect, useState } from "react";
 
 interface AuthFormProps {
 	authType?: "sign-in" | "sign-up";
@@ -26,6 +28,19 @@ interface AuthFormProps {
 const AuthForm = ({ authType = "sign-up" }: AuthFormProps) => {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const searchParams = useSearchParams();
+
+	useEffect(() => {
+		const requiredLogin = searchParams.get("requiredLogin");
+		if (requiredLogin) {
+			const message =
+				requiredLogin === "profile"
+					? "আপনার প্রোফাইল দেখতে সাইন ইন করুন।"
+					: "পণ্যের বিস্তারিত তথ্য জানতে সাইন ইন করুন।";
+
+			toast.warning(message);
+		}
+	}, [searchParams]);
 
 	const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -39,7 +54,13 @@ const AuthForm = ({ authType = "sign-up" }: AuthFormProps) => {
 			callbackURL: "/",
 		});
 
-		console.log(resData, error);
+		if (resData) {
+			toast.success("বাজার দর অ্যাপ এ আপনাকে স্বাগতম।");
+		}
+
+		if (error) {
+			toast.danger("দুঃখিত, অভ্যন্তরীণ সমস্যার কারণে সাইন আপ ব্যর্থ হয়েছে!");
+		}
 	};
 
 	const handleSignIn = async (e: FormEvent<HTMLFormElement>) => {
@@ -53,23 +74,28 @@ const AuthForm = ({ authType = "sign-up" }: AuthFormProps) => {
 			callbackURL: "/",
 		});
 
-		console.log(resData, error);
+		if (resData) toast.success("সফল ভাবে সাইন ইন হয়েছে।");
+		if (error) toast.danger("দুঃখিত, অভ্যন্তরীণ সমস্যার কারণে সাইন ইন ব্যর্থ হয়েছে!");
 	};
 
 	const handleGitHubAuthentication = async () => {
-		const data = await authClient.signIn.social({
+		const { data, error } = await authClient.signIn.social({
 			provider: "github",
+			callbackURL: "/",
 		});
 
-		console.log(data);
+		if (data) toast.success("GitHub দিয়ে সাইন ইন সফল হয়েছে।");
+		if (error) toast.danger("দুঃখিত, অভ্যন্তরীণ সমস্যার কারণে সাইন ইন ব্যর্থ হয়েছে!");
 	};
 
 	const handleGoogleAuthentication = async () => {
-		const data = await authClient.signIn.social({
+		const { data, error } = await authClient.signIn.social({
 			provider: "google",
+			callbackURL: "/",
 		});
 
-		console.log(data);
+		if (data) toast.success("Google দিয়ে সাইন ইন সফল হয়েছে।");
+		if (error) toast.danger("দুঃখিত, অভ্যন্তরীণ সমস্যার কারণে সাইন ইন ব্যর্থ হয়েছে!");
 	};
 
 	return (

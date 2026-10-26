@@ -21,7 +21,6 @@ const ProductDetails = async ({ params }: { params: Promise<{ id: string }> }) =
 
 	const unitBn = UNIT_MAP[unit as keyof typeof UNIT_MAP];
 	const { color, icon } = DIRECTION_MAP[dir as keyof typeof DIRECTION_MAP];
-	console.log(product);
 	return (
 		<section className="space-y-8">
 			<Breadcrumbs>

@@ -8,7 +8,12 @@ export const proxy = async (request: NextRequest) => {
 	});
 
 	if (!session) {
-		return NextResponse.redirect(new URL("/sign-in", request.url));
+		const url = request.nextUrl.clone();
+		const pathname = url.pathname.startsWith("/product") ? "product" : "profile";
+		url.pathname = "/sign-in";
+		url.searchParams.set("requiredLogin", pathname);
+
+		return NextResponse.redirect(url);
 	}
 
 	return NextResponse.next();

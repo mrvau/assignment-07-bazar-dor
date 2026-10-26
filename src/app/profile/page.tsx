@@ -3,7 +3,7 @@
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import profile from "@/../public/profile-placeholder.png";
-import { Button, Spinner } from "@heroui/react";
+import { Button, Spinner, toast } from "@heroui/react";
 import { CornerDownLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -23,7 +23,8 @@ const ProfilePage = () => {
 			callbackURL: "/sign-in",
 		});
 
-		console.log(data, error);
+		if (data) toast.success("সফল ভাবে সাইন আউট হয়েছে।");
+		if (error) toast.danger("কিছু একটা সমস্যা হয়েছে!");
 	};
 	return (
 		<div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white px-4 py-6 rounded-xl">
