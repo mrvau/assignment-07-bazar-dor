@@ -19,6 +19,7 @@ import Link from "next/link";
 import profile from "@/../public/profile-placeholder.png";
 import { Icon } from "@iconify/react";
 import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 const AuthButtons = () => {
 	const { data, error, isPending } = authClient.useSession();
@@ -33,7 +34,11 @@ const AuthButtons = () => {
 
 	const handleSignOut = async () => {
 		const { data, error } = await authClient.signOut({
-			callbackURL: "/sign-in",
+			fetchOptions: {
+				onSuccess: () => {
+					redirect("/sign-in");
+				},
+			},
 		});
 
 		if (data) toast.success("সফল ভাবে সাইন আউট হয়েছে।");
